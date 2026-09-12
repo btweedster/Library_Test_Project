@@ -19,8 +19,7 @@ public class Book extends Media{
     }
 
     /**
-     * Specify author at creation
-     * @param id Starts with "B". Must be unique within Library.
+     * Specify author at creationy.
      * @param title The title of the book.
      * @param author The author of the book.
      */
@@ -38,6 +37,14 @@ public class Book extends Media{
     }
 
     /**
+     * Get the author of the book
+     * @return author of the book
+     */
+    public String getAuthor() {
+        return this.author;
+    }
+
+    /**
      * Manually set the ISBN of the book.
      * @param isbn International Standard Book Number
      */
@@ -46,8 +53,11 @@ public class Book extends Media{
     }
 
     public String toString() {
-        String rString = super.toString() +
-            "\nAuthor: " + author;
+        String rString = super.toString();
+
+        if (author != null) {
+            rString += "\nAuthor: " + author;
+        }
         
         if (isbn != null) {
             rString += "\n ISBN: " + isbn;
@@ -55,4 +65,15 @@ public class Book extends Media{
 
         return rString;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Media && super.equals((Media)o);
+    }
+
+    @Override 
+    public int hashCode() {
+        return super.hashCode();
+    }
+    
 }

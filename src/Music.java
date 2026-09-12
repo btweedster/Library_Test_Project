@@ -95,4 +95,14 @@ public class Music extends Media {
         }
         return rString;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Media && super.equals((Media)o);
+    }
+
+    @Override 
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

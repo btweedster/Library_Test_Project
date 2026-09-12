@@ -2,8 +2,9 @@
 classDiagram
     Direction LR
     Library --> Database
-    Library --> Media
     Database --> Media
+    Database --> Patron
+    Patron <--> Media
     Media --* Book
     Media --* Film
     Media --* Music
@@ -13,6 +14,10 @@ classDiagram
     }
 
     class Database {
+
+    }
+
+    class Patron {
 
     }
 
