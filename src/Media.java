@@ -16,22 +16,6 @@ public class Media {
     private Patron patron;
 
     /**
-     * Gives the due date of a Media item based on the type of Media itme.
-     * @return the due date of the item.
-     */
-    public LocalDate returnDate() {
-        int checkoutDays = 0;
-        if (id.charAt(0) == 'B') {
-            checkoutDays = 30;
-        } else if (id.charAt(0) == 'M') {
-            checkoutDays = 14;
-        } else {
-            checkoutDays = 7;
-        }
-        return LocalDate.now().plusDays(checkoutDays);
-    }
-
-    /**
      * Primary Constructor
      * @param id Unique ID of the media item
      * @param title Title of the media item.
@@ -64,6 +48,22 @@ public class Media {
      */
     public String getTitle() {
         return title;
+    }
+
+    /**
+     * Gives the due date of a Media item based on the type of Media itme.
+     * @return the due date of the item.
+     */
+    public LocalDate returnDate() {
+        int checkoutDays = 0;
+        if (id.charAt(0) == 'B') {
+            checkoutDays = 30;
+        } else if (id.charAt(0) == 'M') {
+            checkoutDays = 14;
+        } else {
+            checkoutDays = 7;
+        }
+        return LocalDate.now().plusDays(checkoutDays);
     }
 
     /**

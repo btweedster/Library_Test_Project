@@ -52,6 +52,14 @@ public class Book extends Media{
         this.isbn = isbn;
     }
 
+    /**
+     * Get the ISBN of the book
+     * @return ISBN
+     */
+    public String getISBN() {
+        return this.isbn;
+    }
+
     public String toString() {
         String rString = super.toString();
 
@@ -60,7 +68,7 @@ public class Book extends Media{
         }
         
         if (isbn != null) {
-            rString += "\n ISBN: " + isbn;
+            rString += "\nISBN: " + isbn;
         }
 
         return rString;

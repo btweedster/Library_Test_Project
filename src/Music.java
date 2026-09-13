@@ -33,7 +33,7 @@ public class Music extends Media {
      * Manually set the artist for the album
      * @param artist The artist of the music album
      */
-    public void set_artist(String artist) {
+    public void setArtist(String artist) {
         this.artist = artist;
     }
 
@@ -41,7 +41,7 @@ public class Music extends Media {
      * Get the music album artist
      * @return artist
      */
-    public String get_artist() {
+    public String getArtist() {
         return artist;
     }
 
@@ -49,7 +49,7 @@ public class Music extends Media {
      * Sets the tracks for the album. Overwrites any track list if it exists.
      * @param tracks list of tracks
      */
-    public void set_tracks(List<String> tracks) {
+    public void setTracks(List<String> tracks) {
         this.tracks = tracks;
     }
 
@@ -58,7 +58,7 @@ public class Music extends Media {
      * @param track The name of the track to append to the list of tracks.
      * @return true if successfully added, otherwise false.
      */
-    public boolean add_track(String track) {
+    public boolean addTrack(String track) {
         if (tracks.contains(track)) {
             return false;
         }
@@ -70,7 +70,7 @@ public class Music extends Media {
      * Returns the list of tracks in the album.
      * @return List of tracks.
      */
-    public List<String> get_tracks() {
+    public List<String> getTracks() {
         return tracks;
     }
 
@@ -79,16 +79,19 @@ public class Music extends Media {
      * @param track The track number whose name will be returned
      * @return Name of the specified track
      */
-    public String get_track(int track_num) {
-        return tracks.get(track_num);
+    public String getTrack(int track_num) {
+        return tracks.get(track_num - 1);
     }
 
     public String toString() {
-        String rString = super.toString() +
-            "\nArtist: " + artist;
+        String rString = super.toString();
+
+        if (artist != null) {
+            rString += "\nArtist: " + this.artist;
+        }
         
         if (!tracks.isEmpty()) {
-            rString += "Tracks: ";
+            rString += "\nTracks:";
             for (int i = 0; i < tracks.size(); i++){
                 rString += "\n\t" + (i+1) + ". " + tracks.get(i);
             }
