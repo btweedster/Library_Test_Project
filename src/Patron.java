@@ -81,4 +81,21 @@ public class Patron {
         }
         return false;
     }
+
+    public String toString() {
+        String rString = "Patron ID: " + this.id +
+            "\nName: " + this.name;
+
+        // add each checked out piece of media and its due date to the string.
+        if (!checkouts.isEmpty()) {
+            rString += "\nChecked out Media:";
+            for (Media m : this.checkouts.keySet()) {
+                rString += "\n\tLibrary ID: " + m.getId() +
+                    "\n\tTitle: " + m.getTitle() +
+                    "\n\tDue Date: " + this.checkouts.get(m).toString() +
+                    "\n";
+            }
+        }
+        return rString;
+    }
 }

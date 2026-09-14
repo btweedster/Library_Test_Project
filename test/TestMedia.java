@@ -1,6 +1,7 @@
 package test;
 
 import src.Media;
+import src.Book;
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
@@ -26,6 +27,10 @@ public class TestMedia {
     public void testToString() {
         Media m = new Media("M0000001","Test Media");
         assertEquals(m.toString(),"Library ID: M0000001\nTitle: Test Media");
+        Media b = new Book("The Hobbit","J.R.R. Tolkien");
+        assertEquals(b.toString(),"Library ID: B\nTitle: The Hobbit\nAuthor: J.R.R. Tolkien");
+        ((Book)b).setISBN("123-45678910");
+        assertEquals(b.toString(),"Library ID: B\nTitle: The Hobbit\nAuthor: J.R.R. Tolkien\nISBN: 123-45678910");
     }
 
     @Test 
