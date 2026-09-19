@@ -3,6 +3,10 @@ package src;
 import java.util.Map;
 import java.util.HashMap;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * Used to simultate a connection to an external data source for testing purposes.
  */
@@ -76,6 +80,9 @@ public class DataConnect {
      * @return the Media object
      */
     public Media getMedia(String id) {
+        // Character c = id.charAt(0);
+        // Map<String,Media> m = contents.get(id.charAt(0));
+        // return m.get(id);
         return contents.get(id.charAt(0)).get(id);
     }
 
@@ -110,5 +117,76 @@ public class DataConnect {
      */
     public Patron getPatron(String id) {
         return patrons.get(id);
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY! Loads csv data from test/TestDatabase
+     */
+    public void loadTestData() {
+        String csvLine;
+
+        // Load Patrons
+        try {
+            BufferedReader b = new BufferedReader(new FileReader("test/TestDatabase/Patrons.csv"));
+            while ((csvLine = b.readLine()) != null) {
+                String[] data = csvLine.split(",");
+                Patron p = new Patron(data[1]);
+                this.addPatron(p);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Load Books
+        try {
+            BufferedReader b = new BufferedReader(new FileReader("test/TestDatabase/Books.csv"));
+            while ((csvLine = b.readLine()) != null) {
+                String[] data = csvLine.split(",");
+                Book book = new Book(data[1],data[2]);
+                book.setISBN(data[3]);
+                this.addMedia(book);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Load Films
+        try {
+            BufferedReader b = new BufferedReader(new FileReader("test/TestDatabase/Films.csv"));
+            while ((csvLine = b.readLine()) != null) {
+                String[] data = csvLine.split(",");
+                Film film = new Film(data[1],Integer.valueOf(data[2]));
+                film.setDirector(data[3]);
+                this.addMedia(film);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Load Music
+        try {
+            BufferedReader b = new BufferedReader(new FileReader("test/TestDatabase/Music.csv"));
+            while ((csvLine = b.readLine()) != null) {
+                String[] data = csvLine.split(",");
+                Music music = new Music(data[1],data[2]);
+                this.addMedia(music);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Load Music Tracks
+        try {
+            BufferedReader b = new BufferedReader(new FileReader("test/TestDatabase/Tracks.csv"));
+            while ((csvLine = b.readLine()) != null) {
+                String[] data = csvLine.split(",");
+                String musicID = data[0].replace("\uFEFF", "");
+                String track = data[1];
+                Music m = (Music) this.getMedia(musicID);
+                m.addTrack(track); 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

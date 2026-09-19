@@ -84,4 +84,35 @@ public class TestDataConnect {
         assertEquals(f3.getId(),"F0000003");
         assertEquals(dc.getMedia("F0000003").getTitle(),"Return of the Jedi");
     }
+
+    @Test 
+    public void testLoadTestData() {
+        DataConnect dc = new DataConnect();
+        dc.loadTestData();
+
+        // Test that each expected patron is not null
+        for (int i = 1; i <= 7; i++) {
+            String pID = "P000000" + i;
+            assertNotNull(dc.getPatron(pID));
+        }
+
+        // Test that each expected Book is not null
+        for (int i = 1; i <= 8; i++) {
+            String mID = "B000000" + i;
+            assertNotNull(dc.getMedia(mID));
+        }
+
+        // Test that each expected Film is not null
+        for (int i = 1; i <= 8; i++) {
+            String mID = "F000000" + i;
+            assertNotNull(dc.getMedia(mID));
+        }
+
+        // Test that each expected Music is not null
+        for (int i = 1; i <= 3; i++) {
+            String mID = "M000000" + i;
+            assertNotNull(dc.getMedia(mID));
+        }
+
+    }
 }
