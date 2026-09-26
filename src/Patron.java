@@ -59,11 +59,12 @@ public class Patron {
     /**
      * Checks out the media item under this patron
      * @param m the Media item to be checked out
+     * @param p the date the media is being checked out
      * @return true if transaction successful, otherwise false.
      */
-    public boolean checkout(Media m) {
+    public boolean checkout(Media m, LocalDate d) {
         if (!checkouts.containsKey(m)) {
-            checkouts.put(m,m.returnDate());
+            checkouts.put(m,m.returnDate(d));
             return true;
         }
         return false;

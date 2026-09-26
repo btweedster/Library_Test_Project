@@ -54,7 +54,7 @@ public class Media {
      * Gives the due date of a Media item based on the type of Media itme.
      * @return the due date of the item.
      */
-    public LocalDate returnDate() {
+    public LocalDate returnDate(LocalDate d) {
         int checkoutDays = 0;
         if (id.charAt(0) == 'B') {
             checkoutDays = 30;
@@ -63,18 +63,28 @@ public class Media {
         } else {
             checkoutDays = 7;
         }
-        return LocalDate.now().plusDays(checkoutDays);
+        return d.plusDays(checkoutDays);
     }
 
     /**
-     * Checks this Media item out under the name of the patron that is supplied
+     * Checks this Media item out under the name of the patron that is supplied. By default sets checkout date as today.
      * @param p The patron checking out this item
      * @return true if the transaction is successful, otherwise false.
      */
     public boolean checkout(Patron p) {
-        if (dueDate == null && p.checkout(this)) {
+        return checkout(p, LocalDate.now());
+    }
+
+    /**
+     * Checks this Media item out under the name of the patron that is supplied. Allows user to specify checkout date
+     * @param p The patron checkin out this item
+     * @param d The date the media is checked out
+     * @return true if the transaction is successful, otherwise false.
+     */
+    public boolean checkout(Patron p, LocalDate d) {
+        if (dueDate == null && p.checkout(this,d)) {
             this.patron = p;
-            this.dueDate = returnDate();
+            this.dueDate = returnDate(d);
             return true;
         }
         return false;
