@@ -7,17 +7,20 @@ classDiagram
     DataConnect --> Media
     DataConnect --> Patron
     Patron <--> Media
-    Media --* Book
-    Media --* Film
-    Media --* Music
+    Media <|-- Book
+    Media <|-- Film
+    Media <|-- Music
     
     class Library {
         dc DataConnect
         addPatron()
         removePatron()
+        getPatron()
+        findPatron()
         addMedia()
         removeMedia()
-        updateMedia()
+        getMedia()
+        findMedia()
         checkout()
         checkin()
     }
@@ -28,13 +31,15 @@ classDiagram
         bookcount Integer
         musicCount Integer
         filmCount Integer
-        patronCount
+        patronCount Integer
         addMedia()
         removeMedia()
         getMedia()
+        findMedia()
         addPatron()
         removePatron()
         getPatron()
+        findPatron()
     }
 
     class Patron {
