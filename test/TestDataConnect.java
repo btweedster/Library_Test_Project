@@ -86,6 +86,60 @@ public class TestDataConnect {
     }
 
     @Test 
+    public void testFindMedia() {
+        DataConnect dc = new DataConnect();
+
+        // Find Book
+        Book b = new Book("The Road");
+        assertTrue(dc.findMedia("The Road").isEmpty());
+        dc.addMedia(b);
+        assertEquals(dc.findMedia("The Road").get(0),b);
+
+        // Find Music
+        Music m = new Music("Who Are You");
+        assertTrue(dc.findMedia("Who Are You").isEmpty());
+        dc.addMedia(m);
+        assertEquals(dc.findMedia("Who Are You").get(0),m);
+        
+        // Find Film
+        Film f = new Film("The Matrix");
+        assertTrue(dc.findMedia("The Matrix").isEmpty());
+        dc.addMedia(f);
+        assertEquals(dc.findMedia("The Matrix").get(0),f);
+
+        // Test loaded media
+        dc.loadTestData();
+        assertEquals(dc.findMedia("The Fellowship of the Ring").size(),1);
+        assertEquals(dc.findMedia("Abbey Road").size(),1);
+        assertEquals(dc.findMedia("Star Wars").size(),1);
+        
+        // add media with duplicate titles
+        dc.addMedia(new Film("The Fellowship of the Ring"));
+        assertEquals(dc.findMedia("The Fellowship of the Ring").size(),2);
+        dc.addMedia(new Book("Abbey Road"));
+        assertEquals(dc.findMedia("Abbey Road").size(),2);
+        dc.addMedia(new Music("Star Wars"));
+        assertEquals(dc.findMedia("Star Wars").size(),2);
+    }
+
+    @Test
+    public void testFindPatron() {
+        DataConnect dc = new DataConnect();
+        Patron p = new Patron("Princess Donut");
+        assertTrue(dc.findPatron("Princess Donut").isEmpty());
+        dc.addPatron(p);
+        assertEquals(dc.findPatron("Princess Donut").size(),1);
+
+        // Test loaded patrons
+        dc.loadTestData();
+        assertEquals(dc.findPatron("Fred Rogers").size(),1);
+
+        // Add patrons with duplicate names
+        dc.addPatron(new Patron("Fred Rogers"));
+        assertEquals(dc.findPatron("Fred Rogers").size(),2);
+    }
+
+    @Test 
     public void testLoadTestData() {
         DataConnect dc = new DataConnect();
         dc.loadTestData();

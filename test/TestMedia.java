@@ -2,6 +2,7 @@ package test;
 
 import src.Media;
 import src.Book;
+import src.Patron;
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
@@ -36,7 +37,29 @@ public class TestMedia {
     @Test 
     public void testReturnData() {
         Media m = new Media("M","Test Media");
-        LocalDate dueDate = m.returnDate();
-        assertEquals(dueDate.toString(),"2026-09-27");
+        LocalDate dueDate = m.returnDate(LocalDate.of(2026,9,27));
+        assertEquals(dueDate.toString(),"2026-10-11");
+    }
+
+    @Test 
+    public void testCheckoutIn() {
+        Media m = new Book("The Hobbit","J.R.R. Tolkien");
+        m.setId("B0000001");
+        Patron frodo = new Patron("Frodo Baggins");
+        frodo.setId("P0000001");
+
+        // Test normal check in and out funtionality
+        assertTrue(m.checkout(frodo));
+        assertFalse(m.checkout(frodo));
+        assertTrue(m.checkin());
+
+        // Test checkout while checked out
+        Patron bilbo = new Patron("Bilbo Baggins");
+        bilbo.setId("P0000002");
+        assertTrue(m.checkout(frodo));
+        assertFalse(m.checkout(bilbo));
+        assertTrue(m.checkin());
+        assertTrue(m.checkout(bilbo));
+        assertTrue(m.checkin());
     }
 }

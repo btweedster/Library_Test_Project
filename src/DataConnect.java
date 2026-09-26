@@ -2,6 +2,8 @@ package src;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -87,6 +89,25 @@ public class DataConnect {
     }
 
     /**
+     * Find a media based on the title 
+     * @param name The title of the media item. Must be exact match
+     * @return Media object if it exists, otherwise null
+     */
+    public List<Media> findMedia(String title) {
+        List<Media> mList = new ArrayList<Media>();
+        for (Character c : contents.keySet()) {
+            Map<String,Media> content_map = contents.get(c);
+            for (String id : content_map.keySet()) {
+                Media m = content_map.get(id);
+                if (m.getTitle().equals(title)) {
+                    mList.add(m);
+                }
+            }
+        }
+        return mList;
+    }
+
+    /**
      * Add a patron to the library
      * @param p The name of the patron
      */
@@ -120,6 +141,30 @@ public class DataConnect {
     }
 
     /**
+     * Find a patron based on their name
+     * @param name The name of the patron, must be exact match
+     * @return Patron object if it exists, otherwise null
+     */
+    public List<Patron> findPatron(String name) {
+        List<Patron> pList = new ArrayList<Patron>();
+        for (String id : patrons.keySet()) {
+            Patron p = patrons.get(id);
+            if (p.getName().equals(name)) {
+                pList.add(p);
+            }
+        }
+        return pList;
+    }
+
+    /**
+     * Used for testing purposes to simulate saving transaction to RDBMS
+     * @return true
+     */
+    public boolean saveTransaction(boolean test) {
+        return test;
+    }
+
+    /**
      * FOR TESTING PURPOSES ONLY! Loads csv data from test/TestDatabase
      */
     public void loadTestData() {
@@ -133,6 +178,7 @@ public class DataConnect {
                 Patron p = new Patron(data[1]);
                 this.addPatron(p);
             }
+            b.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -146,6 +192,7 @@ public class DataConnect {
                 book.setISBN(data[3]);
                 this.addMedia(book);
             }
+            b.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -159,6 +206,7 @@ public class DataConnect {
                 film.setDirector(data[3]);
                 this.addMedia(film);
             }
+            b.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,6 +219,7 @@ public class DataConnect {
                 Music music = new Music(data[1],data[2]);
                 this.addMedia(music);
             }
+            b.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -185,6 +234,7 @@ public class DataConnect {
                 Music m = (Music) this.getMedia(musicID);
                 m.addTrack(track); 
             }
+            b.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
