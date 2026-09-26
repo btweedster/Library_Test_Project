@@ -1,6 +1,7 @@
 package src;
 
 import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Thee main controller class for this library system. And interface should only need to connect to this.
@@ -143,16 +144,27 @@ public class Library {
     }
 
     /**
-     * Checks out a media item under a patron
+     * Checks out a media item under a patron, default uses today as checkout date
      * @param pID The ID of the patron
      * @param mID The ID of the media item
      * @return true if the item was successfully checked out, otherwise false
      */
     public boolean checkout(String pID, String mID) {
+        return checkout(pID,mID,LocalDate.now());
+    }
+
+    /**
+     * Checks out media item under a patron
+     * @param pID The ID of the patron
+     * @param mID The ID of the media item
+     * @param d The date of checkout
+     * @return true if the item was successfully checked out, otherwise false
+     */
+    public boolean checkout(String pID, String mID, LocalDate d) {
         Patron p = dc.getPatron(pID);
         Media m = dc.getMedia(mID);
         if (p != null && m != null) {
-            return dc.getMedia(mID).checkout(dc.getPatron(pID));
+            return dc.getMedia(mID).checkout(dc.getPatron(pID),d);
         }
         return false;
     }
