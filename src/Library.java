@@ -1,5 +1,7 @@
 package src;
 
+import java.util.List;
+
 /**
  * Thee main controller class for this library system. And interface should only need to connect to this.
  * Library
@@ -7,9 +9,23 @@ package src;
 public class Library {
     DataConnect dc;
 
+    /**
+     * Primary constructor
+     */
     public Library() {
         dc = new DataConnect();
     } 
+
+    /**
+     * Test Constructor to load test data
+     * @param test set to true to load test data on contruction
+     */
+    public Library(boolean test) {
+        this();
+        if (test) {
+            dc.loadTestData();
+        }
+    }
 
     /**
      * add a Patron to the library
@@ -26,6 +42,24 @@ public class Library {
      */
     public boolean removePatron(String id) {
         return dc.removePatron(id);
+    }
+
+    /**
+     * Return a patron based on the patron id
+     * @param id The ID of the patron
+     * @return patron object
+     */
+    public Patron getPatron(String id) {
+        return dc.getPatron(id);
+    }
+
+    /**
+     * Return a list of the patron whose names match the input parameter
+     * @param name the name to search for, must be an exact match
+     * @return a List of patrons matching the name, if any
+     */
+    public List<Patron> findPatron(String name) {
+        return dc.findPatron(name);
     }
 
     /**
@@ -91,11 +125,21 @@ public class Library {
     }
 
     /**
-     * TODO
-     * @param id
+     * Return the media item that matches the id
+     * @param id the ID of the media to get
+     * @return Media object
      */
-    public void updateMedia(String id) {
+    public Media getMedia(String id) {
+        return dc.getMedia(id);
+    }
 
+    /**
+     * Get a list of media items that match the title
+     * @param title The title to search, mist exactly match to be returned
+     * @return List of Media object whose titles match
+     */
+    public List<Media> findMedia(String title) {
+        return dc.findMedia(title);
     }
 
     /**
