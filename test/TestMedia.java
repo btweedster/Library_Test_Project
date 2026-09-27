@@ -36,9 +36,15 @@ public class TestMedia {
 
     @Test 
     public void testReturnData() {
-        Media m = new Media("M","Test Media");
+        Media m = new Media("B","Test Media");
         LocalDate dueDate = m.returnDate(LocalDate.of(2026,9,27));
+        assertEquals(dueDate.toString(),"2026-10-27");
+        m = new Media("M","Test Media");
+        dueDate = m.returnDate(LocalDate.of(2026,9,27));
         assertEquals(dueDate.toString(),"2026-10-11");
+        m = new Media("F","Test Media");
+        dueDate = m.returnDate(LocalDate.of(2026,9,27));
+        assertEquals(dueDate.toString(),"2026-10-04");
     }
 
     @Test 
