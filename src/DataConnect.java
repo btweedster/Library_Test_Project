@@ -157,14 +157,6 @@ public class DataConnect {
     }
 
     /**
-     * Used for testing purposes to simulate saving transaction to RDBMS
-     * @return true
-     */
-    public boolean saveTransaction(boolean test) {
-        return test;
-    }
-
-    /**
      * FOR TESTING PURPOSES ONLY! Loads csv data from test/TestDatabase
      */
     public void loadTestData() {
