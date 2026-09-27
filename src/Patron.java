@@ -108,8 +108,8 @@ public class Patron {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Media m = (Media) o;
-        return this.id == m.getId();
+        Patron p = (Patron) o;
+        return this.id == p.getId();
     }
 
     @Override 
