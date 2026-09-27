@@ -67,5 +67,8 @@ public class TestMedia {
         assertTrue(m.checkin());
         assertTrue(m.checkout(bilbo));
         assertTrue(m.checkin());
+
+        // test checkin while not checked out
+        assertFalse(m.checkin());
     }
 }
